@@ -72,12 +72,12 @@ public class CacheMetricsCollectorService extends Service {
         }
         catch (FileNotFoundException e)
         {
-            Log.d("Exception", "File hasn't been created yet, method called for first time\n\n\n\n\n\n\n\n\n\n\n\n");
+            Log.d("Exception", "File hasn't been created yet, method called for first time");
             return;
         }
         catch (IOException e)
         {
-            Log.d("Exception", "IO Exception while reading from metrics file\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n");
+            Log.d("Exception", "IO Exception while reading from metrics file");
             e.printStackTrace();
         }
         finally
@@ -88,7 +88,7 @@ public class CacheMetricsCollectorService extends Service {
             }
             catch (IOException e)
             {
-                Log.d("Exception", "Exception occurred while closing read file handler\n\n\n\n\n\n\n\n\n\n\n\n");
+                Log.d("Exception", "Exception occurred while closing read file handler");
             }
         }
     }
@@ -121,7 +121,7 @@ public class CacheMetricsCollectorService extends Service {
         catch (Exception e)
         {
             e.printStackTrace();
-            Log.d("Exception", "Exception occurred while writing to file\n\n\n\n\n\n\n\n\n\n\n\n\n");
+            Log.d("Exception", "Exception occurred while writing to file");
         }
         finally
         {
@@ -129,7 +129,7 @@ public class CacheMetricsCollectorService extends Service {
                 if(bufferedWriter != null)
                     closeFileOutputHandlers(bufferedWriter);
             } catch (IOException e) {
-                Log.d("Exception", "Exception occurred while closing file handler\n\n\n\n\n\n\n\n\n\n\n\n\n");
+                Log.d("Exception", "Exception occurred while closing file handler");
                 e.printStackTrace();
             }
         }

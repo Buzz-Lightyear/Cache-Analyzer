@@ -53,7 +53,7 @@ public class CacheMetricsDisplayActivity extends AppCompatActivity {
                             */
                             if(iteration % 60 == 0)
                             {
-                                Log.d("Minute Update", "Saving latest metrics to file\n\n\n\n\n\n\n\n\n\n\n\n\n\n");
+                                Log.d("Minute Update", "Saving latest metrics to file");
                                 mService.updateMetricsFile();
                             }
 
