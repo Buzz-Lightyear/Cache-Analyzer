@@ -1,0 +1,32 @@
+<resources>
+    <string name="app_name">CacheAnalyzer</string>
+    <string name="cache_misses"><b>Cache Misses:</b></string>
+    <string name="cache_hits"><b>Cache Hits:</b></string>
+    <string name="cache_hit_ratio"><b>Cache Hit Ratio:</b></string>
+    <string name="dateTimeFormat">MM/dd/yyyy HH:mm:ss</string>
+    <string name="runningApplications"><b>List of Running Processes:</b></string>
+    <string name="foregroundProcess"><b>Current Process in the Foreground:</b></string>
+    <string name="lastUpdated"><b>Last Updated:</b></string>
+    <string name="topLevelFilePath">/proc</string>
+    <string name="cgroupFilePath">/proc/%d/cgroup</string>
+    <string name="EOL">\n</string>
+    <string name="bg_non_interactive">bg_non_interactive</string>
+    <string name="cmdlineFilePath">/proc/%d/cmdline</string>
+    <string name="systemUIProcessName">com.android.systemui</string>
+    <string name="COLON">:</string>
+    <string name="FORWARD_SLASH">/</string>
+    <string name="uid_">uid_</string>
+    <string name="EMPTY" />
+    <string name="oomScoreAdjFilePath">/proc/%d/oom_score_adj</string>
+    <string name="oomScoreFilePath">/proc/%d/oom_score</string>
+    <string name="appUnchanged">Foreground app has not changed</string>
+    <string name="foregroundTag">FOREGROUND</string>
+    <string name="cacheHit">Cache Hit</string>
+    <string name="cacheMiss">Cache Miss!</string>
+    <string name="updatingStatistics">Updating Statistics</string>
+    <string name="myApp">com.thesis.android.metrics.cachemetricscollector</string>
+    <string name="homeScreen">com.google.android.googlequicksearchbox</string>
+    <string name="metricsDataFileName">metricsData</string>
+    <string name="recentCacheBehavior"><b>Recent Cache Hits/Misses</b></string>
+    <string name="acoreProcess">android.process.acore</string>
+</resources>
