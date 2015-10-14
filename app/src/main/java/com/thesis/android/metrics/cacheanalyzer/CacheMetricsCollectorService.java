@@ -56,37 +56,46 @@ public class CacheMetricsCollectorService extends Service {
     void getCurrentMetricsFromFile()
     {
         final String filename = getString(R.string.metricsDataFileName);
+
         FileInputStream inputStream;
+        InputStreamReader inputStreamReader;
+        BufferedReader bufferedReader = null;
 
         try
         {
-            inputStream                         = openFileInput(filename);
-            InputStreamReader inputStreamReader = new InputStreamReader(inputStream);
-            BufferedReader bufferedReader       = new BufferedReader(inputStreamReader);
+            inputStream       = openFileInput(filename);
+            inputStreamReader = new InputStreamReader(inputStream);
+            bufferedReader    = new BufferedReader(inputStreamReader);
 
             cacheHits   = Integer.valueOf(bufferedReader.readLine());
             cacheMisses = Integer.valueOf(bufferedReader.readLine());
-
-            closeFileInputHandlers(inputStream, inputStreamReader, bufferedReader);
-
         }
         catch (FileNotFoundException e)
         {
-            Log.d("Exception", "File hasn't been created yet, method called for first time");
+            Log.d("Exception", "File hasn't been created yet, method called for first time\n\n\n\n\n\n\n\n\n\n\n\n");
             return;
         }
         catch (IOException e)
         {
-            Log.d("Exception", e.toString());
+            Log.d("Exception", "IO Exception while reading from metrics file\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n");
             e.printStackTrace();
+        }
+        finally
+        {
+            try
+            {   if(bufferedReader != null)
+                    closeFileInputHandlers(bufferedReader);
+            }
+            catch (IOException e)
+            {
+                Log.d("Exception", "Exception occurred while closing read file handler\n\n\n\n\n\n\n\n\n\n\n\n");
+            }
         }
     }
 
-    private void closeFileInputHandlers(FileInputStream inputStream, InputStreamReader inputStreamReader,
-                                        BufferedReader bufferedReader) throws IOException {
+    private void closeFileInputHandlers(BufferedReader bufferedReader) throws IOException
+    {
         bufferedReader.close();
-        inputStreamReader.close();
-        inputStream.close();
     }
 
     void updateMetricsFile()
@@ -96,36 +105,40 @@ public class CacheMetricsCollectorService extends Service {
         final String misses   = String.valueOf(cacheMisses);
 
         FileOutputStream outputStream;
+        OutputStreamWriter outputStreamWriter;
+        BufferedWriter bufferedWriter = null;
 
         try
         {
-            outputStream                            = openFileOutput(filename, Context.MODE_PRIVATE);
-            OutputStreamWriter outputStreamWriter   = new OutputStreamWriter(outputStream);
-            BufferedWriter bufferedWriter           = new BufferedWriter(outputStreamWriter);
+            outputStream         = openFileOutput(filename, Context.MODE_PRIVATE);
+            outputStreamWriter   = new OutputStreamWriter(outputStream);
+            bufferedWriter       = new BufferedWriter(outputStreamWriter);
 
             bufferedWriter.write(hits);
             bufferedWriter.newLine();
             bufferedWriter.write(misses);
-
-            closeFileOutputHandlers(outputStream, outputStreamWriter, bufferedWriter);
         }
         catch (Exception e)
         {
             e.printStackTrace();
-            Log.d("Exception", "Exception occurred while writing to file");
+            Log.d("Exception", "Exception occurred while writing to file\n\n\n\n\n\n\n\n\n\n\n\n\n");
+        }
+        finally
+        {
+            try {
+                if(bufferedWriter != null)
+                    closeFileOutputHandlers(bufferedWriter);
+            } catch (IOException e) {
+                Log.d("Exception", "Exception occurred while closing file handler\n\n\n\n\n\n\n\n\n\n\n\n\n")
+                e.printStackTrace();
+            }
         }
     }
 
-    private void closeFileOutputHandlers(FileOutputStream outputStream, OutputStreamWriter outputStreamWriter,
-                                         BufferedWriter bufferedWriter) throws IOException {
+    private void closeFileOutputHandlers(BufferedWriter bufferedWriter) throws IOException
+    {
         bufferedWriter.flush();
         bufferedWriter.close();
-
-        outputStreamWriter.flush();
-        outputStreamWriter.close();
-
-        outputStream.flush();
-        outputStream.close();
     }
 
     private String computeForegroundApp()
@@ -271,12 +284,14 @@ public class CacheMetricsCollectorService extends Service {
 
             if (runningApplicationsList.contains(newForegroundApp)) {
                 Log.d(getString(R.string.foregroundTag), getString(R.string.cacheHit));
-                cacheBehavior.offer("HIT - " + newForegroundApp);
+                cacheBehavior.offer(getString(R.string.hit) + getString(R.string.EOLOld) + foregroundApp + getString(R.string.EOLNew)
+                        + newForegroundApp + getString(R.string.EOL));
                 cacheHits++;
             } else
             {
                 Log.d(getString(R.string.foregroundTag), getString(R.string.cacheMiss));
-                cacheBehavior.offer("MISS - " + newForegroundApp);
+                cacheBehavior.offer(getString(R.string.miss) + getString(R.string.EOLOld) + foregroundApp + getString(R.string.EOLNew)
+                        + newForegroundApp + getString(R.string.EOL));
                 cacheMisses++;
             }
 
@@ -294,6 +309,7 @@ public class CacheMetricsCollectorService extends Service {
         appsThatDontAddToCacheMetrics.add(getString(R.string.myApp));
         appsThatDontAddToCacheMetrics.add(getString(R.string.homeScreen));
         appsThatDontAddToCacheMetrics.add(getString(R.string.acoreProcess));
+        appsThatDontAddToCacheMetrics.add(getString(R.string.boxSearchApp));
     }
 
     private String removeColonsUnderscoresAndDigits(String inputString)

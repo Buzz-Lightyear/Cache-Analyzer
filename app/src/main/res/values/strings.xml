@@ -29,4 +29,9 @@
     <string name="metricsDataFileName">metricsData</string>
     <string name="recentCacheBehavior"><b>Recent Cache Hits/Misses</b></string>
     <string name="acoreProcess">android.process.acore</string>
+    <string name="hit">HIT</string>
+    <string name="miss">MISS</string>
+    <string name="EOLNew">"\nNew - "</string>
+    <string name="EOLOld">"\nOld - "</string>
+    <string name="boxSearchApp">com.google.android.googlequicksearchboxsearch</string>
 </resources>

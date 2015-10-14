@@ -40,7 +40,26 @@ public class CacheMetricsDisplayActivity extends AppCompatActivity {
 
                         mService.getCurrentMetricsFromFile();
 
+                        int iteration = 0;
+
                         while (!isInterrupted()) {
+
+                            iteration++;
+
+                            /*
+                                Update metrics file every minute, so that if the app crashes
+                                and the update statement in onDestroy isn't called, we'll always
+                                have accurate data from the last minute.
+                            */
+                            if(iteration % 60 == 0)
+                            {
+                                Log.d("Minute Update", "Saving latest metrics to file\n\n\n\n\n\n\n\n\n\n\n\n\n\n");
+                                mService.updateMetricsFile();
+                            }
+
+                            /*
+                                Wait for a second before checking for a new foreground app
+                            */
                             Thread.sleep(1000);
                             runOnUiThread(new Runnable() {
                                 @Override
@@ -97,8 +116,8 @@ public class CacheMetricsDisplayActivity extends AppCompatActivity {
         if(mServiceBound)
         {
             /*
-                If the activity is closed for some reason, update the database.
-                When the service restarts and the activity opens, it'll have the updated values.
+                If the activity is manually closed,
+                update internal storage with cache metrics
             */
             mService.updateMetricsFile();
 
