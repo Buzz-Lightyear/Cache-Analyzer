@@ -129,7 +129,7 @@ public class CacheMetricsCollectorService extends Service {
                 if(bufferedWriter != null)
                     closeFileOutputHandlers(bufferedWriter);
             } catch (IOException e) {
-                Log.d("Exception", "Exception occurred while closing file handler\n\n\n\n\n\n\n\n\n\n\n\n\n")
+                Log.d("Exception", "Exception occurred while closing file handler\n\n\n\n\n\n\n\n\n\n\n\n\n");
                 e.printStackTrace();
             }
         }
